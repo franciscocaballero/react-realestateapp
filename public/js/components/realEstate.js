@@ -119,8 +119,114 @@ var Filter = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'section',
-        { className: 'filter' },
-        'Filter'
+        { id: 'filter' },
+        _react2.default.createElement(
+          'div',
+          { className: 'inside' },
+          _react2.default.createElement(
+            'h4',
+            null,
+            'Filter'
+          ),
+          _react2.default.createElement(
+            'select',
+            { name: 'neighbourhood', className: 'filters neighbourhood' },
+            _react2.default.createElement(
+              'option',
+              null,
+              'Woodbridge'
+            )
+          ),
+          _react2.default.createElement(
+            'select',
+            { name: 'housetype', className: 'filters housetype' },
+            _react2.default.createElement(
+              'option',
+              null,
+              'Townhouse'
+            )
+          ),
+          _react2.default.createElement(
+            'select',
+            { name: 'bedrooms', className: ' filters bedrooms' },
+            _react2.default.createElement(
+              'option',
+              null,
+              '2 BR'
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'filters price' },
+            _react2.default.createElement(
+              'span',
+              { className: 'title' },
+              'Price'
+            ),
+            _react2.default.createElement('input', { type: 'text', name: 'min-price', className: 'min-price' }),
+            _react2.default.createElement('input', { type: 'text', name: 'max-price', className: 'max-price' })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'filters floor-space' },
+            _react2.default.createElement(
+              'span',
+              { className: 'title' },
+              'Floor Space'
+            ),
+            _react2.default.createElement('input', { type: 'text', name: 'min-floor-space', className: 'min-floor-space' }),
+            _react2.default.createElement('input', { type: 'text', name: 'max-floor-space', className: 'max-floor-space' })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'filters extras' },
+            _react2.default.createElement(
+              'span',
+              { className: 'title' },
+              'Extras'
+            ),
+            _react2.default.createElement(
+              'label',
+              { 'for': 'extras' },
+              _react2.default.createElement(
+                'span',
+                null,
+                'Elevators'
+              ),
+              _react2.default.createElement('input', { name: 'extras', value: 'elevator', type: 'checkbox' })
+            ),
+            _react2.default.createElement(
+              'label',
+              { 'for': 'extras' },
+              _react2.default.createElement(
+                'span',
+                null,
+                'Swimming Pool'
+              ),
+              _react2.default.createElement('input', { name: 'extras', value: 'swimming pool', type: 'checkbox' })
+            ),
+            _react2.default.createElement(
+              'label',
+              { 'for': 'extras' },
+              _react2.default.createElement(
+                'span',
+                null,
+                'Finshed Basement'
+              ),
+              _react2.default.createElement('input', { name: 'extras', value: 'finshed basement', type: 'checkbox' })
+            ),
+            _react2.default.createElement(
+              'label',
+              { 'for': 'extras' },
+              _react2.default.createElement(
+                'span',
+                null,
+                'Gym'
+              ),
+              _react2.default.createElement('input', { name: 'extras', value: 'gym', type: 'checkbox' })
+            )
+          )
+        )
       );
     }
   }]);
@@ -259,8 +365,180 @@ var Header = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'section',
-        { className: 'listings' },
-        'listings'
+        { id: 'listings' },
+        _react2.default.createElement(
+          'section',
+          { className: 'search-area' },
+          _react2.default.createElement('input', { type: 'text', name: 'search' })
+        ),
+        _react2.default.createElement(
+          'section',
+          { className: 'sortby-area' },
+          _react2.default.createElement(
+            'div',
+            { className: 'results' },
+            ' 390 results found'
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'sort-options' },
+            _react2.default.createElement(
+              'select',
+              { name: 'sortby', className: 'sortby' },
+              _react2.default.createElement(
+                'option',
+                { value: 'price-asc' },
+                'Highest Price'
+              ),
+              _react2.default.createElement(
+                'option',
+                { value: 'price-asc' },
+                'Lowest Price'
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'view' },
+              _react2.default.createElement('i', { className: 'fa fa-list', 'aria-hidden': 'true' }),
+              _react2.default.createElement('i', { className: 'fa fa-th', 'aria-hidden': 'true' })
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'section',
+          { className: 'listings-results' },
+          _react2.default.createElement(
+            'div',
+            { className: 'col-md-3' },
+            _react2.default.createElement(
+              'div',
+              { className: 'listing' },
+              _react2.default.createElement(
+                'div',
+                { className: 'listing-img' },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'address' },
+                  '2233 West Grace st.'
+                ),
+                _react2.default.createElement(
+                  'div',
+                  { className: 'details' },
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'col-md-3' },
+                    _react2.default.createElement('div', { className: 'user-img' })
+                  ),
+                  _react2.default.createElement(
+                    'div',
+                    { className: 'col-md-9' },
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'user-details' },
+                      _react2.default.createElement(
+                        'span',
+                        { className: 'user-name' },
+                        'Tim Cook'
+                      ),
+                      _react2.default.createElement(
+                        'span',
+                        { className: 'post-date' },
+                        '05/08/2017'
+                      )
+                    ),
+                    _react2.default.createElement(
+                      'div',
+                      { className: 'listing-details' },
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'floor-space' },
+                        _react2.default.createElement('i', { className: 'fa fa-square-o', 'aria-hidden': 'true' }),
+                        _react2.default.createElement(
+                          'span',
+                          null,
+                          ' 1000 ft\xB2'
+                        ),
+                        _react2.default.createElement(
+                          'div',
+                          { className: 'bedrooms' },
+                          _react2.default.createElement('i', { className: 'fa fa-bed', 'aria-hidden': 'true' }),
+                          _react2.default.createElement(
+                            'span',
+                            null,
+                            '3 Bedrooms'
+                          )
+                        )
+                      ),
+                      _react2.default.createElement(
+                        'div',
+                        { className: 'view-btn' },
+                        'view listing'
+                      )
+                    )
+                  )
+                )
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'bottom-info' },
+                _react2.default.createElement(
+                  'span',
+                  { className: 'price' },
+                  '$1000 / month'
+                ),
+                _react2.default.createElement(
+                  'span',
+                  { className: 'location' },
+                  _react2.default.createElement('i', { className: 'fa fa-map-marker', 'aria-hidden': 'true' }),
+                  ' Richmond, Va'
+                )
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          'section',
+          { id: 'pagination' },
+          _react2.default.createElement(
+            'ul',
+            { className: 'pages' },
+            _react2.default.createElement(
+              'li',
+              null,
+              'Prev'
+            ),
+            _react2.default.createElement(
+              'li',
+              { className: 'active' },
+              '1'
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              '2'
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              '3'
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              '4'
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              '5'
+            ),
+            _react2.default.createElement(
+              'li',
+              null,
+              'Next'
+            )
+          )
+        )
       );
     }
   }]);

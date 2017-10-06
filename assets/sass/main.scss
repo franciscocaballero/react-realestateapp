@@ -2,7 +2,11 @@
 @import "varibles";
 @import "reset";
 @import "listings";
-body {
+@import "content-area";
+
+*,
+body,
+html {
   font-family: 'Roboto', sans-serif;
-  // background: purple;
+  box-sizing: border-box;
 }
