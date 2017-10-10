@@ -22,7 +22,7 @@ var listingsData = [
     extras: ['pool',
     'gym',
     'parking'],
-    homeType: 'Townhouse',
+    homeType: 'Studio',
     image: 'http://www.homeplans.com/house-plans/media/catalog/product/h/c/hca005-fr1-ph-co.jpg'
   },
   {
@@ -74,6 +74,18 @@ var listingsData = [
     extras: ['pool',
     'parking'],
     homeType: 'Condo',
+    image: 'http://cdn.home-designing.com/wp-content/uploads/2015/06/DSC_2610.jpg'
+  },
+  {
+    address: '1234 RidgeWood Ct',
+    city: 'Houston',
+    state: 'TX',
+    rooms: 5,
+    price: 320000,
+    floorSpace: 5000,
+    extras: ['pool',
+    'parking'],
+    homeType: 'Multi Home',
     image: 'http://cdn.home-designing.com/wp-content/uploads/2015/06/DSC_2610.jpg'
   }
 ]

@@ -27,7 +27,7 @@ var listingsData = [{
   price: 1000,
   floorSpace: 500,
   extras: ['pool', 'gym', 'parking'],
-  homeType: 'Townhouse',
+  homeType: 'Studio',
   image: 'http://www.homeplans.com/house-plans/media/catalog/product/h/c/hca005-fr1-ph-co.jpg'
 }, {
   address: '65-12 Northwest ave',
@@ -69,6 +69,16 @@ var listingsData = [{
   extras: ['pool', 'parking'],
   homeType: 'Condo',
   image: 'http://cdn.home-designing.com/wp-content/uploads/2015/06/DSC_2610.jpg'
+}, {
+  address: '1234 RidgeWood Ct',
+  city: 'Houston',
+  state: 'TX',
+  rooms: 5,
+  price: 320000,
+  floorSpace: 5000,
+  extras: ['pool', 'parking'],
+  homeType: 'Multi Home',
+  image: 'http://cdn.home-designing.com/wp-content/uploads/2015/06/DSC_2610.jpg'
 }];
 
 exports.default = listingsData;
@@ -109,6 +119,8 @@ var _listingsData2 = _interopRequireDefault(_listingsData);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -128,6 +140,9 @@ var App = function (_Component) {
     _this.state = {
       name: 'Francisco',
       listingsData: _listingsData2.default,
+      city: 'All',
+      homeType: 'All',
+      bedrooms: '0',
       min_price: 0,
       max_price: 100000000,
       min_floor_space: 0,
@@ -135,9 +150,13 @@ var App = function (_Component) {
       elavator: false,
       finshed_basement: false,
       gym: false,
-      allows_pets: false
+      allows_pets: false,
+      filteredData: _listingsData2.default,
+      populateFormsData: ''
     };
     _this.change = _this.change.bind(_this);
+    _this.filteredData = _this.filteredData.bind(_this);
+    _this.populateDate = _this.populateForms.bind(_this);
     return _this;
   }
 
@@ -150,7 +169,60 @@ var App = function (_Component) {
       var value = event.target.type === 'checkbox' ? event.target.checked : event.target.value;
 
       this.setState(_defineProperty({}, name, value), function () {
-        console.log(_this2.state);
+        _this2.filteredData();
+      });
+    }
+  }, {
+    key: 'populateForms',
+    value: function populateForms() {
+      // City
+      var cities = this.state.listingsData.map(function (item) {
+        return item.city;
+      });
+      cities = new Set(cities);
+      cities = [].concat(_toConsumableArray(cities));
+      //homeType
+      var homeTypes = this.state.listingsData.map(function (item) {
+        return item.homeType;
+      });
+      cities = new Set(homeTypes);
+      homeTypes = [].concat(_toConsumableArray(homeTypes));
+      //Bedrooms
+      var bedrooms = this.state.listingsData.map(function (item) {
+        return item.rooms;
+      });
+      bedrooms = new Set(bedrooms);
+      bedrooms = [].concat(_toConsumableArray(bedrooms));
+
+      this.setState({
+        populateFormsData: {
+          homeTypes: homeTypes,
+          bedrooms: bedrooms,
+          cities: cities
+        }
+      });
+    }
+  }, {
+    key: 'filteredData',
+    value: function filteredData() {
+      var _this3 = this;
+
+      var newData = this.state.listingsData.filter(function (item) {
+        return item.price >= _this3.state.min_price && item.price <= _this3.state.max_price && item.floorSpace >= _this3.state.min_floor_space && item.floorSpace <= _this3.state.max_floor_space && item.rooms >= _this3.state.bedrooms;
+      });
+
+      if (this.state.city != 'All') {
+        newData = newData.filter(function (item) {
+          return item.city == _this3.state.city;
+        });
+      }
+      if (this.state.homeType != 'All') {
+        newData = newData.filter(function (item) {
+          return item.homeType == _this3.state.homeType;
+        });
+      }
+      this.setState({
+        filteredData: newData
       });
     }
   }, {
@@ -163,8 +235,8 @@ var App = function (_Component) {
         _react2.default.createElement(
           'section',
           { id: 'content-area' },
-          _react2.default.createElement(_Filter2.default, { change: this.change, globalState: this.state }),
-          _react2.default.createElement(_Listings2.default, { listingsData: this.state.listingsData })
+          _react2.default.createElement(_Filter2.default, { change: this.change, globalState: this.state, populateAction: this.populateForms }),
+          _react2.default.createElement(_Listings2.default, { listingsData: this.state.filteredData })
         )
       );
     }
@@ -232,8 +304,18 @@ var Filter = function (_Component) {
             'Filter'
           ),
           _react2.default.createElement(
+            'label',
+            { htmlFor: 'city' },
+            'City'
+          ),
+          _react2.default.createElement(
             'select',
-            { name: 'neighbourhood', className: 'filters neighbourhood', onChange: this.props.change },
+            { name: 'city', className: 'filters city', onChange: this.props.change },
+            _react2.default.createElement(
+              'option',
+              { value: 'All' },
+              'All'
+            ),
             _react2.default.createElement(
               'option',
               { value: 'Woodbridge' },
@@ -266,8 +348,23 @@ var Filter = function (_Component) {
             )
           ),
           _react2.default.createElement(
+            'label',
+            { htmlFor: 'homeType' },
+            'Home Type'
+          ),
+          _react2.default.createElement(
             'select',
-            { name: 'housetype', className: 'filters housetype', onChange: this.props.change },
+            { name: 'homeType', className: 'filters homeType', onChange: this.props.change },
+            _react2.default.createElement(
+              'option',
+              { value: 'All' },
+              'All Homes'
+            ),
+            _react2.default.createElement(
+              'option',
+              { value: 'Studio' },
+              'Studio'
+            ),
             _react2.default.createElement(
               'option',
               { value: 'Apartment' },
@@ -285,22 +382,42 @@ var Filter = function (_Component) {
             )
           ),
           _react2.default.createElement(
+            'label',
+            { htmlFor: 'bedrooms' },
+            'Bedrooms'
+          ),
+          _react2.default.createElement(
             'select',
             { name: 'bedrooms', className: ' filters bedrooms', onChange: this.props.change },
             _react2.default.createElement(
               'option',
-              { value: 'One Bedroom' },
-              '1 BR'
+              { value: '0' },
+              '0+ BR'
             ),
             _react2.default.createElement(
               'option',
-              { value: 'Two Bedroom' },
-              '2 BR'
+              { value: '1' },
+              '1+ BR'
             ),
             _react2.default.createElement(
               'option',
-              { value: 'Three Bedroom' },
-              '3 BR'
+              { value: '2' },
+              '2+ BR'
+            ),
+            _react2.default.createElement(
+              'option',
+              { value: '3' },
+              '3+ BR'
+            ),
+            _react2.default.createElement(
+              'option',
+              { value: '4' },
+              '4+ BR'
+            ),
+            _react2.default.createElement(
+              'option',
+              { value: '5' },
+              '5+ BR'
             )
           ),
           _react2.default.createElement(
@@ -524,6 +641,10 @@ var Header = function (_Component) {
     value: function loopListings() {
       var listingsData = this.props.listingsData;
 
+
+      if (listingsData == undefined || listingsData.length == 0) {
+        return 'Sorry for filter did not match any listing';
+      }
 
       return listingsData.map(function (listing, index) {
         return _react2.default.createElement(
