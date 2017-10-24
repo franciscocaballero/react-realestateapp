@@ -589,7 +589,7 @@ var Header = function (_Component) {
         _react2.default.createElement(
           'div',
           { className: 'logo' },
-          ' Logo '
+          'Realestate '
         ),
         _react2.default.createElement(
           'nav',
