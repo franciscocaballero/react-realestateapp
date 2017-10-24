@@ -23,11 +23,25 @@ class App extends Component {
       gym: false,
       allows_pets: false,
       filteredData: listingsData,
-      populateFormsData: ''
+      populateFormsData: '',
+      sortby: 'price-dsc',
+      view: 'box'
     }
     this.change = this.change.bind(this)
     this.filteredData = this.filteredData.bind(this)
-    this.populateDate = this.populateForms.bind(this)
+    this.populateForms = this.populateForms.bind(this)
+    this.changeView = this.changeView.bind(this)
+  }
+
+  componentWillMount(){
+    var listingsData = this.state.listingsData.sort((a,b) =>{
+      return a.price - b.price
+    })
+
+
+    this.setState({
+      listingsData
+    })
   }
   change(event){
     var name = event.target.name
@@ -40,35 +54,13 @@ class App extends Component {
     })
   }
 
-populateForms(){
-  // City
-var cities = this.state.listingsData.map((item) => {
-  return item.city
-})
-cities = new Set(cities)
-cities = [...cities]
-  //homeType
-  var homeTypes = this.state.listingsData.map((item) => {
-    return item.homeType
-  })
-  cities = new Set(homeTypes)
-  homeTypes = [...homeTypes]
-  //Bedrooms
-  var bedrooms = this.state.listingsData.map((item) => {
-    return item.rooms
-  })
-  bedrooms = new Set(bedrooms)
-  bedrooms = [...bedrooms]
-
-  this.setState({
-    populateFormsData: {
-      homeTypes,
-      bedrooms,
-      cities
-    }
-  })
-
+changeView(viewName){
+ this.setState({
+   view: viewName
+ })
 }
+
+
   filteredData(){
   var newData = this.state.listingsData.filter((item) => {
     return item.price >= this.state.min_price && item.price <= this.state.max_price && item.floorSpace >= this.state.min_floor_space &&
@@ -85,17 +77,63 @@ cities = [...cities]
       return item.homeType == this.state.homeType
     })
   }
+
+  if(this.state.sortby == 'price-dsc'){
+    newData = newData.sort((a,b) => {
+      return a.price - b.price
+
+    })
+  }
+  if(this.state.sortby == 'price-asc'){
+    newData = newData.sort((a,b) => {
+      return b.price - a.price
+
+    })
+  }
   this.setState({
     filteredData: newData
   })
   }
 
+  populateForms(){
+    // City
+    var cities = this.state.listingsData.map((item) => {
+      return item.city
+    })
+    cities = new Set(cities)
+    cities = [...cities]
+
+    cities = cities.sort()
+    //homeType
+    var homeTypes = this.state.listingsData.map((item) => {
+      return item.homeType
+    })
+    homeTypes = new Set(homeTypes)
+    homeTypes = [...homeTypes]
+    homeTypes = homeTypes.sort()
+    //Bedrooms
+    var bedrooms = this.state.listingsData.map((item) => {
+      return item.rooms
+    })
+    bedrooms = new Set(bedrooms)
+    bedrooms = [...bedrooms]
+    bedrooms =bedrooms.sort()
+
+    this.setState({
+      populateFormsData: {
+        homeTypes,
+        bedrooms,
+        cities
+      },
+    })
+
+  }
   render () {
     return (<div>
       <Header />
       <section id='content-area'>
         <Filter change={this.change} globalState={this.state} populateAction={this.populateForms}/>
-        <Listings listingsData={this.state.filteredData} />
+        <Listings listingsData={this.state.filteredData} change={this.change} globalState={this.state} changeView={this.changeView}/>
       </section>
       </div>)
   }
