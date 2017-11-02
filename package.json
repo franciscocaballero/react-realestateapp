@@ -36,7 +36,8 @@
     "sass-loader": "^6.0.3",
     "standard": "^10.0.2",
     "webpack": "^2.5.1",
-    "webpack-stream": "^3.2.0"
+    "webpack-stream": "^3.2.0",
+    "yarn": "^1.2.1"
   },
   "scripts": {
     "predeploy": "npm run build",
